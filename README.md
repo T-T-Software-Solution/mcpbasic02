@@ -51,18 +51,12 @@ This repository is a modular .NET 8 solution demonstrating a Model Context Proto
 4. Run the console client (`App.Console`) for interactive AI chat
 
 ### Build and Run Example
-```powershell
-# Build the solution
- dotnet build mcpbasic02.sln
 
-# Run the MCP server
- cd Presentations\App.Mcp
- dotnet run
+#### 1. Start the Project
+![Start Project](images/01start.png)
 
-# In a new terminal, run the console client
- cd Presentations\App.Console
- dotnet run
-```
+#### 2. Demo: Run Prompt to Read Data, Update Data, Review Latest Update
+![Demo Run Prompt](images/02demo.png)
 
 ## Documentation
 - See each project's `README.md` for details on configuration, usage, and features (see links above).
