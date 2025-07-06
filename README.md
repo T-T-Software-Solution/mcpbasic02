@@ -2,7 +2,7 @@
 
 This repository is a modular .NET 8 solution demonstrating a Model Context Protocol (MCP) architecture for business applications. It features a clean separation of concerns across core logic, infrastructure, and presentation layers, and provides both API and console-based interfaces for interacting with business data and AI-powered tools.
 
-![Start Project](images/intro.png)
+![Start Project](Images/intro.png)
 
 ## Solution Structure
 
@@ -55,10 +55,10 @@ This repository is a modular .NET 8 solution demonstrating a Model Context Proto
 ### Build and Run Example
 
 #### 1. Start the Project
-![Start Project](images/01start.png)
+![Start Project](Images/01start.png)
 
 #### 2. Demo: Run Prompt to Read Data, Update Data, Review Latest Update
-![Demo Run Prompt](images/02demo.png)
+![Demo Run Prompt](Images/02demo.png)
 
 ## Documentation
 - See each project's `README.md` for details on configuration, usage, and features (see links above).
