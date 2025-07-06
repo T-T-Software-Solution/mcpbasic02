@@ -55,4 +55,18 @@ public class CustomerTools
 
     [McpServerTool, Description("Delete a customer")]
     public async Task DeleteCustomer(Guid id) => await _customerService.DeleteAsync(id);
+
+    [McpServerTool, Description("Search customers by name")]
+    public async Task<IEnumerable<CustomerDto>> SearchCustomersByName(
+        [Description("Customer name")] string name)
+    {
+        return await _customerService.SearchByNameAsync(name);
+    }
+
+    [McpServerTool, Description("Search customers by email")]
+    public async Task<IEnumerable<CustomerDto>> SearchCustomersByEmail(
+        [Description("Customer email")] string email)
+    {
+        return await _customerService.SearchByEmailAsync(email);
+    }
 }

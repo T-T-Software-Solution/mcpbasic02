@@ -67,4 +67,11 @@ public class StarshipTools
 
     [McpServerTool, Description("Delete a starship")]
     public async Task DeleteStarship(Guid id) => await _starshipService.DeleteAsync(id);
+
+    [McpServerTool, Description("Search starships by manufacturer name")]
+    public async Task<IEnumerable<StarshipDto>> SearchStarshipsByManufacturerName(
+        [Description("Manufacturer name")] string manufacturerName)
+    {
+        return await _starshipService.SearchByManufacturerNameAsync(manufacturerName);
+    }
 }

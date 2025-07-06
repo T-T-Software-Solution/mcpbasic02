@@ -55,4 +55,18 @@ public class OrderTools
 
     [McpServerTool, Description("Delete an order")]
     public async Task DeleteOrder(Guid id) => await _orderService.DeleteAsync(id);
+
+    [McpServerTool, Description("Search orders by customer name")]
+    public async Task<IEnumerable<OrderDto>> SearchOrdersByCustomerName(
+        [Description("Customer name")] string customerName)
+    {
+        return await _orderService.SearchByCustomerNameAsync(customerName);
+    }
+
+    [McpServerTool, Description("Search orders by customer email")]
+    public async Task<IEnumerable<OrderDto>> SearchOrdersByCustomerEmail(
+        [Description("Customer email")] string customerEmail)
+    {
+        return await _orderService.SearchByCustomerEmailAsync(customerEmail);
+    }
 }
