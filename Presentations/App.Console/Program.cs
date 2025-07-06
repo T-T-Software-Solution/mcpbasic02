@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using Azure.AI.OpenAI;
+﻿using Azure.AI.OpenAI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using ModelContextProtocol.Client;
@@ -12,36 +11,6 @@ var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false)
     .AddUserSecrets<Program>()
     .Build();
-
-var tenantId = config["AzureAd:TenantId"];
-var clientId = config["AzureAd:ClientId"];
-var apiScope = config["AzureAd:ApiScope"];
-var redirectUri = config["AzureAd:RedirectUri"];
-var authority = $"https://login.microsoftonline.com/{tenantId}";
-
-var app = PublicClientApplicationBuilder.Create(clientId)
-    .WithAuthority(authority)
-    .WithRedirectUri(redirectUri)
-    .Build();
-
-string[] scopes = new[] { apiScope ?? throw new InvalidOperationException("AzureAd:ApiScope is missing in configuration.") };
-
-AuthenticationResult? result = null;
-try
-{
-    result = await app.AcquireTokenInteractive(scopes).ExecuteAsync();
-    Console.WriteLine("Access Token:");
-    Console.WriteLine(result.AccessToken);
-}
-catch (MsalClientException ex)
-{
-    Console.WriteLine($"Error acquiring token: {ex.Message}");
-}
-if (result == null)
-{
-    Console.WriteLine("Failed to acquire access token. Exiting.");
-    return;
-}
 
 // Retrieve secrets with null checks
 string? endpointStr = config["AzureOpenAI:Endpoint"];
@@ -76,11 +45,7 @@ if (string.IsNullOrWhiteSpace(mcpSseEndpoint))
 await using (IMcpClient mcpClient = await McpClientFactory.CreateAsync(
     new SseClientTransport(new()
     {
-        Endpoint = new Uri(mcpSseEndpoint),
-        AdditionalHeaders = new Dictionary<string, string>
-        {
-            { "Authorization", $"Bearer {result.AccessToken}" }
-        }
+        Endpoint = new Uri(mcpSseEndpoint)
     })))
 {
     // List all available tools from the MCP server.

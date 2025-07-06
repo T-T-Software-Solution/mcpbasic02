@@ -17,7 +17,9 @@ builder.Services.AddDbContext<App.Database.AppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register business services
-builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IStarshipService, StarshipService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // Add controller support
 builder.Services.AddControllers();
@@ -39,6 +41,7 @@ app.MapMcp();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<App.Database.AppContext>();
+    context.Database.Migrate(); // Apply migrations before seeding
     App.Database.DbInitializer.Seed(context);
 }
 
